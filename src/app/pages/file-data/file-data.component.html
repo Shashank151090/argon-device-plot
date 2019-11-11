@@ -1,0 +1,238 @@
+<div class="header bg-gradient-danger pb-8 pt-5">
+  <div class="container-fluid">
+    <div class="header-body">
+            <!-- Card stats -->
+            <div class="row adjust-space">
+                <div class="col-xl-4 col-lg-4">
+                  <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                            <input type="text" [(ngModel)] = "deviceId" (blur)="deviceIdCheck()" class="form-control" placeholder="Enter device id">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-4">
+                  <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <mat-form-field class="col-md-12">
+                            <input matInput [matDatepicker]="picker1" [(ngModel)] = "matStartDate" (dateChange)="startDateFun('change', $event)" placeholder="Enter Start Date" [formControl]="startDateForm">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-4">
+                  <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <mat-form-field class="col-md-12">
+                            <input matInput [matDatepicker]="picker2" [(ngModel)] = "matEndDate" (dateChange)="endDateFun('change', $event)" placeholder="Enter End Date" [formControl]="endDateForm">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                          </mat-form-field>  
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row adjust-space">
+                <div class="col-xl-12 col-lg-12">
+                  <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                            <div matTooltip="Enter Device ID, Start date and End date to Enable" [matTooltipDisabled]="!disableDownload">
+                                <button class="btn btn-default" style="margin: 10px;" [disabled] = "disableDownload" (click)="downloadFile()">Download File</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div matTooltip="Download a file to Enable" [matTooltipDisabled]="!disableRead">
+                                <button class="btn btn-default" style="margin: 10px;" [disabled] = "disableRead" (click)="getFileData()">Read File</button>
+                            </div>
+                        </div>
+                          <div class="col">
+                              <div matTooltip="Read data from a file to Enable" [matTooltipDisabled]="!disablePrint">
+                                  <button class="btn btn-default" style="margin: 10px;" [disabled] = "disablePrint" (click)="print()">Print</button>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div matTooltip="Read data from a file to Enable" [matTooltipDisabled]="!disableDelete">
+                                  <button class="btn btn-default" style="margin: 10px;" [disabled] = "disableDelete" (click)="deleteFile()">Delete</button>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-4 mb-5 mb-xl-0">
+          <div class="card" *ngIf="decodedA1Data">
+              <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col  no-padd">
+                        <div class="col-md-12  no-padd">
+                            <div class="col-md-7 sameLine">
+                               <p>Product Version:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{decodedA1Data.pv}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>Reporting Interval(min):</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{decodedA1Data.uploadInterval}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>Sensor Sampling Interval(sec):</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{binarySamplingInterval}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>Temperature High Threshold:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{decodedA1Data.highThreshold}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>Temperature Low Threshold:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{decodedA1Data.lowThreshold}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>Operation Mode:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{decodedA1Data.mode}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>No of Samples:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{noOfSamples}}
+                            </div>
+                            <div class="col-md-7 sameLine">
+                               <p>No of A4 Samples:</p>
+                            </div>
+                            <div class="col-md-5 sameLine">
+                               {{noOfA4Data}}
+                            </div>
+                         </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow" *ngIf="decodedA1Data">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center" *ngIf="decodedA1Data">
+                <div class="col">
+                     <div class="col-md-12">
+                           <div class="myChartWrapper">
+                           <button class="btn btn-default"  matTooltip="View Graph in Full Screen" style="margin: 10px;" [disabled] = "disablePrint" (click)= "viewFullScreen()"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+                           <div class="myChart">
+                                 <canvas
+                                     baseChart
+                                     [chartType]="'line'"
+                                     [datasets]="chartData"
+                                     [labels]="chartLabels"
+                                     [options]="chartOptions"
+                                     [legend]="true"
+                                     (chartClick)="onChartClick($event)">
+                                 </canvas>
+                               </div>
+                               </div>
+                     </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+            <div class="card bg-gradient-default shadow" *ngIf="decodedA1Data">
+              <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+        <table matSort (matSortChange)="sortData($event)" class="table table-responsive table-hover align-items-center table-dark table-flush table-set-width" border="1">
+            <thead>
+               <!-- <th mat-sort-header="ust">
+                   Time in UST 
+               </th> -->
+               <th mat-sort-header="time">
+                    Time  
+               </th>
+               <th>
+                    Temperature  
+               </th>
+               <th>
+                    Battery %  
+               </th>
+               <th>
+                    Movement  
+               </th>
+               <th>
+                    Logger  
+               </th>
+               <th>
+                    Sensor  
+               </th>
+               <th>
+                    Location  
+               </th>
+               <th>
+                    LBS Mode  
+               </th>
+               <th>
+                    Debug Info  
+               </th>
+            </thead>
+            <tbody>
+               <ng-container *ngFor="let data of newArrayToDisplay ">
+                  <tr>
+                     <!-- <td>{{data.ust}}</td> -->
+                     <td>{{data.time}}</td>
+                     <td>{{data.temp}}</td>
+                     <td>{{data.battery}}</td>
+                     <td>{{data.movement}}</td>
+                     <td>{{data.logger}}</td>
+                     <td>{{data.sensor}}</td>
+                     <td>{{data.lat}} , {{data.long}}</td>
+                     <td>{{data.lbs}}</td>
+                     <td>
+                        <ul>
+                           <li>CGREG: {{data.debug.cgReg}}</li>
+                           <li>MQTT Retry: {{data.debug.mqtt}}</li>
+                           <li>Signal Strength: {{data.debug.signal}}</li>
+                           <li>GPS: {{data.debug.gps}}</li>
+                        </ul>
+                     </td>
+                  </tr>
+               </ng-container>
+            </tbody>
+         </table>
+         </div>
+         </div>
+         </div>
+         </div>
+    </div>
+</div>

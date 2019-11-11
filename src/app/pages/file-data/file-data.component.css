@@ -1,0 +1,21 @@
+.adjust-space {
+    padding: 10px 0px;
+}
+.table {
+    height: 500px;
+}
+.sameLine {
+    display: inline-block;
+}
+.myChart {
+    height: 300px;
+    width: 10000px;
+  }
+  
+  .myChartWrapper {
+    /* width: 600px; */
+    overflow-x: scroll;
+  }
+  .no-padd {
+    padding: 0px !important;
+  }

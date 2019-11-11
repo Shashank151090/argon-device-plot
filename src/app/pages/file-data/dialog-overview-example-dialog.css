@@ -1,0 +1,15 @@
+.myChart{
+    height: 500px;
+    width: 10000px;
+  }
+  
+  .myChartWrapper{
+    /* width: 600px; */
+    overflow-x: scroll;
+  }
+  .cdk-global-overlay-wrapper{
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+    justify-content: center !important;
+  }
